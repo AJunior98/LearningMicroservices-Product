@@ -4,6 +4,7 @@ import org.acme.dto.ProductDTO;
 import org.acme.service.ProductService;
 
 import javax.inject.Inject;
+import javax.print.attribute.standard.Media;
 import javax.transaction.Transactional;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -15,6 +16,12 @@ public class ProductController {
 
     @Inject
     ProductService productService;
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public ProductDTO findProductByid(Long id) {
+        return productService.findById(id);
+    }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
