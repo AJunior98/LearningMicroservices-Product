@@ -15,6 +15,10 @@ public class ProductService {
     @Inject
     ProductRepository productRepository;
 
+    public ProductDTO getProductById(Long id) {
+        return mapProductEntityToProductDTO(productRepository.findById(id));
+    }
+
     public List<ProductDTO> getAllProducts() {
         List<ProductDTO> products = new ArrayList<>();
         productRepository.findAll().stream().forEach(item -> {
@@ -36,18 +40,15 @@ public class ProductService {
         productRepository.deleteById(id);
     }
 
-    public ProductDTO findById(Long id) {
-        return mapProductEntityToProductDTO(productRepository.findById(id));
-    }
-
     private ProductDTO mapProductEntityToProductDTO(ProductEntity productEntity) {
         ProductDTO product = new ProductDTO();
 
+        product.setId(productEntity.getId());
         product.setName(productEntity.getName());
         product.setDescription(productEntity.getDescription());
         product.setCategory(productEntity.getCategory());
         product.setPrice(productEntity.getPrice());
-        product.setModel(product.getModel());
+        product.setModel(productEntity.getModel());
 
         return product;
     }
@@ -55,11 +56,12 @@ public class ProductService {
     private ProductEntity mapProductEntityToProductDTO(ProductDTO productDTO) {
         ProductEntity productEntity = new ProductEntity();
 
+        productEntity.setId(productDTO.getId());
         productEntity.setName(productDTO.getName());
         productEntity.setDescription(productDTO.getDescription());
         productEntity.setCategory(productDTO.getCategory());
         productEntity.setPrice(productDTO.getPrice());
-        productEntity.setModel(productEntity.getModel());
+        productEntity.setModel(productDTO.getModel());
 
         return productEntity;
     }

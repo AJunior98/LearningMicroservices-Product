@@ -18,9 +18,10 @@ public class ProductController {
     ProductService productService;
 
     @GET
+    @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public ProductDTO findProductByid(Long id) {
-        return productService.findById(id);
+    public ProductDTO getProductByid(Long id) {
+        return productService.getProductById(id);
     }
 
     @GET
